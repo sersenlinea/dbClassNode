@@ -5,6 +5,7 @@ const fs = require('fs')
 
 app.get('/home',(req,res)=>{
     let datos = fs.readFileSync('./users.json','utf-8')
+    console.log(JSON.parse(datos));
     res.json({msg:JSON.parse(datos)})
 })
 app.get('/',(req,res)=>{
