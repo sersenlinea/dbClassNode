@@ -4,8 +4,14 @@
       <h1><%= title %></h1>
     </div>
     <div class="col-8 bg-info bg-opacity-50">
-      <p>Welcome to <%= title %></p>
+      
     </div>
+    <% if (locals.user!=undefined) { %>
+      <p>Bienvenid@ <%= locals.user.nombre %>  a <%= title %></p>
+     
+    <% }else{ %>
+      <p>Necesitas loguearte</p>
+    <%}%>
   </div>
   <div class="row">
     <div class="col-4 bg-info bg-opacity-25">

@@ -7,5 +7,13 @@ module.exports={
             }
         }
         return undefined;
+    },
+    getUserById:(id)=>{
+        for (let index = 0; index < users.length; index++) {
+            if(users[index].id===id){
+                return users[index]
+            }
+        }
+        return undefined;
     }
 }
