@@ -43,6 +43,8 @@
             </div>
             <div class="mb-3 form-check">
                 <img src="/images/<%= hotel.src %>" width="150px" alt="">
+                <input type="text" name="src" id="src" value="<%= hotel.src %>" hidden>
+                <input type="text" name="title" value="hotel" hidden>
             </div>
             <button type="submit" class="btn btn-primary">Modificar</button>
         </form>

@@ -58,10 +58,48 @@ const controller = {
         res.render('editHotel',{hotel:hotel})
     },
     editPost:(req,res)=>{
-        res.send('EditPost')
+        
+        let datos =req.body;
+        let servicios=[];
+        if(datos.cancha){servicios=[...servicios,datos.cancha]}
+        if(datos.playa){servicios=[...servicios,datos.playa]}
+        if(datos.pileta){servicios=[...servicios,datos.pileta]}
+        if(datos.wifi){servicios=[...servicios,datos.wifi]}
+        if(datos.spa){servicios=[...servicios,datos.spa]}
+
+        let misDatos={
+            nombre:datos.nombre,
+            email:datos.email,
+            ubicacion:datos.ubicacion,
+            info:datos.info,
+            servicios:servicios,
+            title:datos.title,
+            src:datos.src,
+            id:datos.id,
+        }
+        
+        db = modeloDatos.update(db,req.body.id,misDatos)
+        let newData = JSON.stringify(db);
+            fs.writeFileSync('./db/hoteles.json',newData,'utf-8')
+        res.redirect('/hoteles')
     },
     delete:(req,res)=>{
-        res.send('Delete')
+        let id = req.body.id;
+        let imgDelete = modeloDatos.getOne(db,id);
+        let archivo = imgDelete.src;
+        if(fs.existsSync('public/images/'+archivo)){
+            fs.unlinkSync('public/images/'+archivo)
+        }
+        let info = modeloDatos.delete(db,id);
+        let newData = JSON.stringify(info);
+        fs.writeFileSync('./db/hoteles.json',newData,'utf-8')
+        res.redirect('/hoteles/delete')
+    },
+    deleteDirect:(req,res)=>{
+        res.render('aviso')
+    },
+    all:(req,res)=>{
+        res.status(200).json(db);
     }
 }
 module.exports= controller
